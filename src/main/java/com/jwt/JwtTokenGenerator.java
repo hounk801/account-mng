@@ -20,17 +20,8 @@ public class JwtTokenGenerator {
 
     private static final String JWT_SECRET_ALGO = "HS256";
     private static final String TYPE = "Jwt";
-    private static final long EXPIRE_TIME = 15 * 60 * 1000;
+    private static final long EXPIRE_TIME = 60 * 60 * 1000;
     private static final String TOKEN_SECRET = "thisissecret";
-
-
-//    public String encode(UserInfo token) throws Exception {
-//        JwtHeader header = new JwtHeader(scala.Option.apply(JWT_SECRET_ALGO), Option.empty(), Option.empty());
-//        Map<String, Object> map = beanTomap(token);
-//        JwtClaimsSet();
-
-//        return "";
-//    }
 
     public static String encode(UserInfo userInfo) throws UnsupportedEncodingException {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
