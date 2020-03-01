@@ -30,12 +30,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             Cookie[] cookies = request.getCookies();
             String token = "";
             for (Cookie cookie : cookies) {
-                switch (cookie.getName()) {
-                    case "token":
-                        token = cookie.getValue();
-                        break;
-                    default:
-                        break;
+                if ("token".equals(cookie.getName())) {
+                    token = cookie.getValue();
                 }
             }
 
