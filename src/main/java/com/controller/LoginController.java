@@ -2,8 +2,15 @@ package com.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.annotation.Authentication;
-import com.annotation.UserInfo;
-import com.annotation.UserInfoService;
+import com.entity.UserInfo;
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.output.BaseOutput;
+import com.output.ResponseFactory;
+import com.output.UserOutput;
+import com.service.UserInfoService;
+import com.input.LoginInput;
+import com.jwt.JwtTokenGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -12,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Map;
 
 /**
  * @Description
@@ -21,31 +29,39 @@ import java.io.OutputStreamWriter;
 @RestController
 public class LoginController {
 
+    @Autowired
+    private UserInfoService userInfoService;
+
     @PostMapping(value = "/login")
-    public Object loginAuth(@RequestBody UserInfo userInfo, HttpServletRequest req, HttpServletResponse response) throws IOException {
+    public void loginAuth(@RequestBody LoginInput loginInput, HttpServletRequest req, HttpServletResponse response) throws IOException {
 
-        boolean auth = UserInfoService.authNameAndPasswd(userInfo.getName(), userInfo.getPassword());
-        if (!auth) {
-            return HttpServletResponse.SC_UNAUTHORIZED;
+//        userInfoService.authenticate(loginInput.getAccount(),loginInput.getPassword());
+        String message = "登录成功";
+        int code = HttpServletResponse.SC_OK;
+
+        UserInfo user = userInfoService.login(loginInput.getAccount(), loginInput.getPassword());
+        if (user != null) {
+            String token = JwtTokenGenerator.encode(user);
+            Cookie cookie = new Cookie("token", token);
+            response.addCookie(cookie);
+        } else {
+            code = HttpServletResponse.SC_UNAUTHORIZED;
+            message = "用户名或密码错误";
         }
-        String user = JSONObject.toJSONString(userInfo);
-        Cookie cookie = new Cookie("token", java.net.URLEncoder.encode(user, "UTF-8"));
-        cookie.setMaxAge(3600);
-
-        response.addCookie(cookie);
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(response.getOutputStream()));
+        BaseOutput output = new BaseOutput(code, message);
+        writer.write(output.toJson());
         writer.close();
-
-        return HttpServletResponse.SC_OK;
     }
 
     @ResponseBody
     @GetMapping(value = "/get-user")
     @Authentication
-    public Object getUser(HttpServletRequest req, HttpServletResponse response) {
-        UserInfo userInfo = UserInfoService.getUserInfo();
-        return userInfo;
+    public BaseOutput getUser(@RequestParam String account) {
+        UserInfo userInfo = userInfoService.getUserInfo(account);
+        if (userInfo == null) {
+            return ResponseFactory.get(500,"未找到该用户信息");
+        }
+        return ResponseFactory.get(new UserOutput(userInfo));
     }
-
-
 }

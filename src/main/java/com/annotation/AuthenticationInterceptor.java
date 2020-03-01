@@ -1,5 +1,6 @@
 package com.annotation;
 
+import com.jwt.JwtTokenGenerator;
 import org.springframework.http.MediaType;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -37,7 +38,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             }
 
             if (token != null && token.length() > 0) {
-                boolean islogin = UserInfoService.authNameAndPasswd(token);
+                boolean islogin = JwtTokenGenerator.decode(token);
                 if (islogin) {
                     return true;
                 }
