@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.annotation.Authentication;
 import com.annotation.UserInfo;
 import com.annotation.UserInfoService;
-import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /**
- * @Description TODO
+ * @Description
  * @Author naikuo
  * @Date 2020/3/1 8:00 PM
  */
