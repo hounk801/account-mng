@@ -1,5 +1,6 @@
 package com.annotation;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -15,6 +16,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         //如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -37,7 +39,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             }
 
             if (token != null && token.length() > 0) {
-                //验证token
                 boolean islogin = UserInfoService.authNameAndPasswd(token);
                 if (islogin) {
                     return true;
@@ -45,7 +46,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             }
 
             response.setStatus(401);
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(response.getOutputStream()));
             writer.write("请登录");
             writer.close();
