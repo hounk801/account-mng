@@ -1,15 +1,13 @@
 package com.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.annotation.Authentication;
 import com.entity.UserInfo;
-import com.fasterxml.jackson.databind.ser.Serializers;
+import com.input.LoginInput;
+import com.jwt.JwtTokenGenerator;
 import com.output.BaseOutput;
 import com.output.ResponseFactory;
 import com.output.UserOutput;
 import com.service.UserInfoService;
-import com.input.LoginInput;
-import com.jwt.JwtTokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.Map;
 
 /**
  * @Description

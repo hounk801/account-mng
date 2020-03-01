@@ -1,6 +1,5 @@
 package com.annotation;
 
-import com.entity.UserInfo;
 import com.jwt.JwtTokenGenerator;
 import com.output.BaseOutput;
 import org.springframework.http.MediaType;
@@ -14,6 +13,11 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 
+/**
+ * @Description TODO
+ * @Author naikuo
+ * @Date 2020/3/1 08:56 AM
+ */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
