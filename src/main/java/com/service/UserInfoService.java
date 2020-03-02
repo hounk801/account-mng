@@ -1,11 +1,7 @@
 package com.service;
 
-import com.entity.UserInfo;
 import com.database.Database;
-import com.security.LoginToken;
-import lombok.val;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+import com.entity.UserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -29,16 +25,6 @@ public class UserInfoService {
             }
         }
         return null;
-    }
-
-    public boolean authenticate(String account, String passwd) {
-
-        // Use Shiro to pass through a username password token.
-        LoginToken token = new LoginToken(account, passwd);
-        Subject subject = SecurityUtils.getSubject();
-
-        subject.login(token);
-        return true;
     }
 
     public UserInfo getUserInfo(String account) {
