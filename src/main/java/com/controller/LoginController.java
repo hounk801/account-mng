@@ -2,6 +2,7 @@ package com.controller;
 
 import com.annotation.Authentication;
 import com.entity.UserInfo;
+import com.entity.UserInfoHolder;
 import com.input.LoginInput;
 import com.jwt.JwtTokenGenerator;
 import com.output.BaseOutput;
@@ -32,7 +33,6 @@ public class LoginController {
     @PostMapping(value = "/login")
     public void loginAuth(@RequestBody LoginInput loginInput, HttpServletRequest req, HttpServletResponse response) throws IOException {
 
-//        userInfoService.authenticate(loginInput.getAccount(),loginInput.getPassword());
         String message = "登录成功";
         int code = HttpServletResponse.SC_OK;
 
@@ -44,6 +44,7 @@ public class LoginController {
         } else {
             code = HttpServletResponse.SC_UNAUTHORIZED;
             message = "用户名或密码错误";
+            response.addCookie(new Cookie("token", ""));
         }
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(response.getOutputStream()));
         BaseOutput output = new BaseOutput(code, message);
@@ -54,10 +55,10 @@ public class LoginController {
     @ResponseBody
     @GetMapping(value = "/get-user")
     @Authentication
-    public BaseOutput getUser(@RequestParam String account) {
-        UserInfo userInfo = userInfoService.getUserInfo(account);
+    public BaseOutput getUser() {
+        UserInfo userInfo = UserInfoHolder.getUserInfo();
         if (userInfo == null) {
-            return ResponseFactory.get(500,"未找到该用户信息");
+            return ResponseFactory.get(500, "未找到该用户信息");
         }
         return ResponseFactory.get(new UserOutput(userInfo));
     }
