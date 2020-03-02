@@ -3,6 +3,8 @@ package com;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -24,6 +26,9 @@ import javax.servlet.http.Cookie;
 @SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 public class LoginControllerTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginControllerTest.class);
+
     @Autowired
     private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
@@ -42,13 +47,15 @@ public class LoginControllerTest {
                     .post("/login")
                     .content("{\"account\": \"anny@qq.com\",\"password\": \"anny\"}").contentType("application/json"))
                     .andReturn().getResponse();
+
             Cookie token = response.getCookie("token");
             tokenValue = token.getValue();
-            System.out.println("token:" + tokenValue);
-            System.out.println("data:" + response.getContentAsString());
-            System.out.println("---------------------------");
+
+            LOGGER.info("token:{}", tokenValue);
+            LOGGER.info("data:{}", response.getContentAsString());
+            LOGGER.info("---------------------------");
         } catch (Exception e) {
-            System.out.println(e);
+            LOGGER.error("exception={}", e);
         }
 
     }
@@ -62,11 +69,11 @@ public class LoginControllerTest {
                     .andReturn().getResponse();
             Cookie token = response.getCookie("token");
             tokenValue = token.getValue();
-            System.out.println("token:" + tokenValue);
-            System.out.println("data:" + response.getContentAsString());
-            System.out.println("---------------------------");
+            LOGGER.info("token:{}", tokenValue);
+            LOGGER.info("data:{}", response.getContentAsString());
+            LOGGER.info("---------------------------");
         } catch (Exception e) {
-            System.out.println(e);
+            LOGGER.error("exception={}", e);
         }
     }
 
@@ -80,9 +87,9 @@ public class LoginControllerTest {
                     .get("/get-user").cookie(new Cookie("token", tokenValue))
                     .contentType("application/json"))
                     .andReturn().getResponse();
-            System.out.println("data:" + response.getContentAsString());
+            LOGGER.info("data:{}", response.getContentAsString());
         } catch (Exception e) {
-            System.out.println(e);
+            LOGGER.error("exception={}", e);
         }
     }
 
@@ -93,9 +100,9 @@ public class LoginControllerTest {
                     .get("/get-user").cookie(new Cookie("token", tokenValue))
                     .contentType("application/json"))
                     .andReturn().getResponse();
-            System.out.println("data:" + response.getContentAsString());
+            LOGGER.info("data:{}", response.getContentAsString());
         } catch (Exception e) {
-            System.out.println(e);
+            LOGGER.error("exception={}", e);
         }
     }
 }

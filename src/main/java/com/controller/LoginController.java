@@ -9,6 +9,8 @@ import com.output.BaseOutput;
 import com.output.ResponseFactory;
 import com.output.UserOutput;
 import com.service.UserInfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,8 @@ import java.io.OutputStreamWriter;
  */
 @RestController
 public class LoginController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private UserInfoService userInfoService;
@@ -44,6 +48,8 @@ public class LoginController {
             code = HttpServletResponse.SC_UNAUTHORIZED;
             message = "用户名或密码错误";
             response.addCookie(new Cookie("token", ""));
+
+            LOGGER.info("login fail userName={}", loginInput.getAccount());
         }
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(response.getOutputStream()));
         BaseOutput output = new BaseOutput(code, message);
