@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class LoginController {
     private UserInfoService userInfoService;
 
     @PostMapping(value = "/login")
-    public void loginAuth(@RequestBody LoginInput loginInput, HttpServletRequest req, HttpServletResponse response) throws IOException {
+    public void loginAuth(@RequestBody LoginInput loginInput, HttpServletResponse response) throws IOException {
 
         String message = "登录成功";
         int code = HttpServletResponse.SC_OK;
@@ -58,7 +57,7 @@ public class LoginController {
     public BaseOutput getUser() {
         UserInfo userInfo = UserInfoHolder.getUserInfo();
         if (userInfo == null) {
-            return ResponseFactory.get(500, "未找到该用户信息");
+            return ResponseFactory.get(HttpServletResponse.SC_UNAUTHORIZED, "未找到该用户信息");
         }
         return ResponseFactory.get(new UserOutput(userInfo));
     }
