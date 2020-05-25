@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * 分页对象
- * @author 懒猴子CG
+ * @author naikuoh
  * @date 2020/05/25 16:04
  */
 @Data

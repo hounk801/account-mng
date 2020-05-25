@@ -5,14 +5,14 @@ import java.lang.reflect.Method;
 
 /**
  * MyBatis工具类
- * @author 懒猴子CG
+ * @author naikuoh
  * @date 2020/05/25 16:04
  */
 public class MyBatisUtil {
 
     /**
      * 实体类转Example
-     * @author 懒猴子CG
+     * @author naikuoh
      * @date 2020/05/25 16:04
      */
     public static <E> E toExample(Object source, Class<E> exampleClass) {
