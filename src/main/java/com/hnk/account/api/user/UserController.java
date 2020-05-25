@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * 示例Controller
- * @author 懒猴子CG
+ * @author naikuoh
  * @date 2020/05/25 16:04
  */
 @RestController
@@ -27,7 +27,7 @@ public class UserController extends BaseController {
 
     /**
      * 用户管理页面
-     * @author 懒猴子CG
+     * @author naikuoh
      * @date 2020/05/25 16:04
      */
     @GetMapping("/manage")
@@ -42,7 +42,7 @@ public class UserController extends BaseController {
 
     /**
      * 创建
-     * @author 懒猴子CG
+     * @author naikuoh
      * @date 2020/05/25 16:04
      */
     @PostMapping("/create")
@@ -53,7 +53,7 @@ public class UserController extends BaseController {
 
     /**
      * 通过id查询
-     * @author 懒猴子CG
+     * @author naikuoh
      * @date 2020/05/25 16:04
      */
     @GetMapping("/{id}")
@@ -64,7 +64,7 @@ public class UserController extends BaseController {
 
     /**
      * 根据ID修改
-     * @author 懒猴子CG
+     * @author naikuoh
      * @date 2020/05/25 16:04
      */
     @PostMapping("/updateById")
@@ -76,7 +76,7 @@ public class UserController extends BaseController {
 
     /**
      * 根据ID删除
-     * @author 懒猴子CG
+     * @author naikuoh
      * @date 2020/05/25 16:04
      */
     @GetMapping("/delete/{id}")
