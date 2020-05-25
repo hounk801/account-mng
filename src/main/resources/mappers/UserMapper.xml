@@ -3,17 +3,17 @@
 <mapper namespace="com.hnk.account.dao.user.UserMapper">
     <resultMap id="BaseResultMap" type="com.hnk.account.dao.user.model.User">
         <id column="ID" jdbcType="INTEGER" property="id"/>
-        <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="userName"/>
         <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
-        <result column="NICKNAME" jdbcType="VARCHAR" property="nickname"/>
-        <result column="REAL_NAME" jdbcType="VARCHAR" property="realName"/>
+        <result column="NICKNAME" jdbcType="VARCHAR" property="nickName"/>
+        <result column="REALNAME" jdbcType="VARCHAR" property="realName"/>
         <result column="BIRTHDAY" jdbcType="DATE" property="birthday"/>
         <result column="SEX" jdbcType="TINYINT" property="sex"/>
         <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
         <result column="MOBILE" jdbcType="VARCHAR" property="mobile"/>
-        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="IS_DELETE" jdbcType="BIT" property="isDelete"/>
+        <result column="CREATETIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="ISDELETE" jdbcType="BIT" property="isDelete"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -76,8 +76,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    ID, USERNAME, PASSWORD, NICKNAME, REAL_NAME, BIRTHDAY, SEX, EMAIL, MOBILE, CREATE_TIME,
-    UPDATE_TIME, IS_DELETE
+    ID, USERNAME, PASSWORD, NICKNAME, REALNAME, BIRTHDAY, SEX, EMAIL, MOBILE, CREATETIME,
+    UPDATETIME, ISDELETE
   </sql>
     <select id="selectByExample" parameterType="com.hnk.account.dao.user.model.UserExample" resultMap="BaseResultMap">
         select

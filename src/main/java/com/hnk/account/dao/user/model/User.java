@@ -19,13 +19,13 @@ public class User implements Serializable {
     private Integer id;
 
     @ApiModelProperty("用户名")
-    private String username;
+    private String userName;
 
     @ApiModelProperty("密码")
     private String password;
 
     @ApiModelProperty("昵称")
-    private String nickname;
+    private String nickName;
 
     @ApiModelProperty("真实姓名")
     private String realName;

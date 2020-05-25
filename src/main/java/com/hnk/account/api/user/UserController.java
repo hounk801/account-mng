@@ -13,17 +13,28 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 /**
- * 示例Controller
  * @author naikuoh
  * @date 2020/05/25 16:04
  */
 @RestController
 @RequestMapping("/user")
-@Api(tags = "示例接口")
+@Api(tags = "用户")
 public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * 用户管理页面
+     * @author naikuoh
+     * @date 2020/05/25 16:04
+     */
+    @GetMapping("/test")
+    public ApiResponse test() {
+     ApiResponse apiResponse =ApiResponse.success("success");
+        return apiResponse;
+    }
+
 
     /**
      * 用户管理页面
