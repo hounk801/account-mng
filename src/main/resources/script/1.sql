@@ -13,3 +13,5 @@ CREATE TABLE `user` (
    `isDelete` tinyint(1) DEFAULT NULL,
    PRIMARY KEY (`id`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+ insert into `user` (`id`, `userName`, `password`, `nickName`, `realName`, `birthday`, `sex`, `email`, `mobile`, `createTime`, `updateTime`, `isDelete`) values('1','naikuo','123456','nai','kuo','2020-05-25 17:21:15','1','8242@qq.com','132','2020-05-25 17:21:15','2020-05-25 17:21:15','1');
